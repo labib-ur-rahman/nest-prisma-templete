@@ -4,8 +4,8 @@ import { TooManyAttemptsException } from '../exceptions/business.exception';
 
 @Injectable()
 export class CustomThrottlerGuard extends ThrottlerGuard {
-  protected async throwThrottlingException(
-    context: ExecutionContext,
+  protected throwThrottlingException(
+    _context: ExecutionContext,
     throttlerLimitDetail: any,
   ): Promise<void> {
     const ttl = throttlerLimitDetail?.timeToExpire;
