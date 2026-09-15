@@ -1,31 +1,31 @@
 import { baseEmailTemplate } from './base-email.template';
 
 export const getOtpEmailContent = (
-    otpCode: string,
-    type: string = 'ACCOUNT_VERIFY',
-    isResend: boolean = false,
+  otpCode: string,
+  type: string = 'ACCOUNT_VERIFY',
+  isResend: boolean = false,
 ): { subject: string; html: string } => {
-    let subject = 'Your Verification Code';
-    let title = 'Verification Code';
-    let description =
-        'Please use the verification code below to complete your authentication process. This code is valid for the next 10 minutes.';
+  let subject = 'Your Verification Code';
+  let title = 'Verification Code';
+  let description =
+    'Please use the verification code below to complete your authentication process. This code is valid for the next 10 minutes.';
 
-    if (type === 'PASSWORD_RESET') {
-        subject = isResend
-            ? 'Resend: Password Reset Request'
-            : 'Password Reset Request';
-        title = isResend ? 'Resend Password Reset Code' : 'Password Reset';
-        description = isResend
-            ? 'You requested a new verification code to reset your password. Please use the code below to proceed.'
-            : 'Please use the verification code below to reset your password. This code is valid for the next 10 minutes.';
-    } else if (type === 'ACCOUNT_VERIFY' && isResend) {
-        subject = 'Resend: Your Verification Code';
-        title = 'Resend Verification Code';
-        description =
-            'You requested a new verification code to verify your account. Please use the code below to proceed.';
-    }
+  if (type === 'PASSWORD_RESET') {
+    subject = isResend
+      ? 'Resend: Password Reset Request'
+      : 'Password Reset Request';
+    title = isResend ? 'Resend Password Reset Code' : 'Password Reset';
+    description = isResend
+      ? 'You requested a new verification code to reset your password. Please use the code below to proceed.'
+      : 'Please use the verification code below to reset your password. This code is valid for the next 10 minutes.';
+  } else if (type === 'ACCOUNT_VERIFY' && isResend) {
+    subject = 'Resend: Your Verification Code';
+    title = 'Resend Verification Code';
+    description =
+      'You requested a new verification code to verify your account. Please use the code below to proceed.';
+  }
 
-    const content = `
+  const content = `
     <p style="color: #cccccc; line-height: 1.6; text-align: center;">
       ${description}
     </p>
@@ -37,8 +37,8 @@ export const getOtpEmailContent = (
     </p>
   `;
 
-    return {
-        subject,
-        html: baseEmailTemplate(title, content),
-    };
+  return {
+    subject,
+    html: baseEmailTemplate(title, content),
+  };
 };
