@@ -1,0 +1,18 @@
+enum UserRole {
+    ADMIN
+    USER
+    ORGANIZER
+}
+
+enum UserStatus {
+    PENDING_VERIFICATION
+    ACTIVE
+    INACTIVE
+    BLOCK
+    SUSPEND
+}
+
+enum OtpType {
+    ACCOUNT_VERIFY
+    PASSWORD_RESET
+}

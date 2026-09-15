@@ -1,0 +1,14 @@
+model OTP {
+    id        String   @id @default(uuid())
+    userId    String
+    code      String
+    type      OtpType  @default(PASSWORD_RESET)
+    isUsed    Boolean  @default(false)
+    expiresAt DateTime
+    createdAt DateTime @default(now())
+
+    // Relation
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("otps")
+}
