@@ -5,14 +5,36 @@ import { GlobalExceptionFilter } from './common/filters/global-exception.filter'
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { ValidationPipe } from '@nestjs/common';
 import { ValidationException } from './common/exceptions';
+import { ConfigService } from '@nestjs/config';
+import helmet from 'helmet';
+import compression from 'compression';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
 
-  // Enable CORS
+  // Security headers with Helmet
+  app.use(helmet());
+
+  // Performance compression
+  app.use(compression());
+
+  // Environment-driven CORS configuration
+  const corsOrigins =
+    configService.get<string[] | string>('app.corsOrigins') ?? '*';
+  const corsCredentials =
+    configService.get<boolean>('app.corsCredentials') ?? false;
+
   app.enableCors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: corsOrigins,
+    credentials: corsCredentials,
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'Accept',
+      'X-Requested-With',
+    ],
   });
 
   // Global prefix
@@ -70,4 +92,4 @@ async function bootstrap() {
   console.log(`API documentation: http://localhost:${PORT}/docs`);
 }
 
-bootstrap();
+void bootstrap();
