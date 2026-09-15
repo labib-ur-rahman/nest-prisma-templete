@@ -18,17 +18,25 @@ import { JwtStrategy } from '../../common/strategies/jwt.strategy';
     PrismaModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
+      useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('jwt.accessSecret') as string,
         signOptions: {
-          expiresIn: configService.get<string>('jwt.accessTokenExpiresIn') as any,
+          expiresIn: configService.get<string>(
+            'jwt.accessTokenExpiresIn',
+          ) as any,
         },
       }),
       inject: [ConfigService],
     }),
   ],
   controllers: [AuthController, AuthOtpController, AuthPasswordController],
-  providers: [AuthService, OtpService, PasswordService, EmailService, JwtStrategy],
+  providers: [
+    AuthService,
+    OtpService,
+    PasswordService,
+    EmailService,
+    JwtStrategy,
+  ],
   exports: [AuthService, JwtModule],
 })
-export class AuthModule { }
+export class AuthModule {}
