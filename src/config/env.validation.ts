@@ -24,6 +24,14 @@ export class EnvironmentVariables {
   PORT: number;
 
   @IsString()
+  @IsOptional()
+  ALLOWED_ORIGINS: string;
+
+  @IsString()
+  @IsOptional()
+  CORS_CREDENTIALS: string;
+
+  @IsString()
   POSTGRES_USER: string;
 
   @IsString()
