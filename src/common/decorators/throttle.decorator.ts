@@ -25,7 +25,6 @@ export const ThrottleRefreshToken = () =>
     },
   });
 
-
 export const ThrottleLogin = () =>
   Throttle({
     default: {

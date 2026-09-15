@@ -15,7 +15,7 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "@prisma": ["prisma/generated/prisma/client"]
+      "@prisma": ["prisma/generated/client"]
     },
     "incremental": true,
     "skipLibCheck": true,
@@ -26,11 +26,11 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src",
-    "test",
-    "prisma/generated/client",
+    "src/**/*",
+    "test/**/*",
+    "prisma/generated/**/*",
     "prisma.config.ts",
-    "prisma/seed.ts"
+    "prisma/seeds/**/*"
   ],
   "exclude": ["node_modules", "dist", "prisma/migrations"]
 }
